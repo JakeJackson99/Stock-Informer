@@ -1,0 +1,32 @@
+GET http://localhost:5000/
+
+### correct credentials
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "user1",
+    "password": "user1"
+} 
+
+###  incorrect credentials
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "user1",
+    "password": "userrr1"
+} 
+
+
+### doesn't exist 
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+} 

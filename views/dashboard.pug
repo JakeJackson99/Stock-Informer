@@ -1,0 +1,15 @@
+extends base
+
+block content 
+
+    h1 #{user_board.username}'s Dashboard
+
+    if current_user.id === user_board.id
+        h3 Create new board
+        include _new_board
+
+    each item in user_board.items
+        include _board
+
+    form(action="/logout" method="post") 
+        button(type="submit") Logout

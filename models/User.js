@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema(
     items: [{
       name: {
         type: String,
+        unique: true,
         require: true,
         minlength: 1,
         maxlength: 20,

@@ -1,0 +1,16 @@
+h2 Login
+
+if messages.error
+    p(style={color: "red"})= messages.error
+
+form(action="/auth/login" method="post")
+
+    div(class="mb-3")
+        label(for="username" class="form-label") Username 
+        input(type="text" id="username" name="username" class="form-control" require)  
+
+    div(class="mb-3")
+        label(for="password" class="form-label") Password 
+        input(type="password" id="password" name="password" class="form-control" require)  
+
+    button(type="submit" class="btn btn-primary mb-3") Login

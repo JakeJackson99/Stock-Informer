@@ -1,15 +1,37 @@
-nav(class="navbar.navbar-expand-lg.navbar-light.bg-light")
-      a(class="navbar-brand" href="#") Navbar
-      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-      div.collapse.navbar-collapse #
-        ul.navbar-nav
-          li.nav-item.active
-            a.nav-link(href='#') Dashboard 
-            //-   span.sr-only (current)
-          li.nav-item.me-2
-            a.nav-link(href='#') Login
-          li.nav-item.me-2
-            a.nav-link(href='#') Logout
-        span.navbar-text 
-            p yo
+nav(class="navbar navbar-expand-lg navbar-light bg-light")
+
+    div(class="container-fluid")
+
+        a(class="navbar-brand" href="#") Navbar
+
+        button(class="navbar-toggler" type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+
+            span(class="navbar-toggler-icon")
+
+        div(class="collapse navbar-collapse" id="navbarNav")
+
+            ul(class="navbar-nav me-auto")
+
+                if current_user
+
+                    li(class="nav-item")
+
+                        a(class="nav-link" href='/board/user/' + current_user.username) Dashboard
+
+                    form(action="/auth/logout" method="post") 
+
+                        button(type="submit" class="btn") Logout
+
+                else
+
+                    //- li(class="nat-item")
+
+                    //-     a(class="nav-link" href="/user/settings/" + current_user.username)
+
+                    li(class="nav-item")
+
+                        a(class="nav-link" href='/auth/login') Login
+
+                    li(class="nav-item")
+
+                        a(class="nav-link" href='/auth/register') Register

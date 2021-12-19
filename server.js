@@ -6,13 +6,16 @@ const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("express-flash");
+
 const intializePassport = require("./middleware/passport-config");
+const hrefConverter = require("./middleware/href-converter");
+
 intializePassport(passport);
 
 // Views
 const AuthView = require("./routes/auth");
-const MainView = require("./routes/main");
 const BoardsView = require("./routes/boards");
+// const UserView = require("./routes/user");
 
 // App setup
 const app = express();
@@ -36,10 +39,15 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(hrefConverter);
 
-app.use("/", AuthView);
-app.use("/", MainView);
-app.use("/", BoardsView);
+app.get("/", async (req, res) => {
+  res.redirect("/auth/login")
+});
+
+app.use("/auth/", AuthView);
+app.use("/board/", BoardsView);
+// app.use("/user/", UserView);
 
 // Connect to MongoDB & run server
 mongoose
@@ -51,5 +59,3 @@ mongoose
     app.listen(port, () => console.log(`Listening on port ${port}...`));
   })
   .catch((err) => console.log(err));
-
-

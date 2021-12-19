@@ -2,6 +2,8 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../models/User");
+const { checkNotAuthenticated } = require("../controllers/authController");
+
 
 router.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register");
@@ -9,17 +11,25 @@ router.get("/register", checkNotAuthenticated, (req, res) => {
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
-    const hashPassword = await bcrypt.hash(req.body.password, 10);
-    const user = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashPassword,
-    });
-    await user.save();
-    res.redirect("/login");
+
+    if (req.body.password == req.body.password2) {
+      const hashPassword = await bcrypt.hash(req.body.password, 10);
+      const user = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hashPassword,
+      });
+      console.log(user)
+      await user.save();
+    } else {
+      res.redirect('/auth/register')
+    }
+
+    res.redirect("/auth/login");
+
   } catch (error) {
     console.log(error);
-    res.redirect("/register");
+    res.redirect("/auth/register");
   }
 });
 
@@ -33,19 +43,14 @@ router.post(
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  (req, res) => res.redirect("/dashboard/" + req.user.username)
+  (req, res) => res.redirect("/board/user/" + req.user.username)
 );
 
 router.post("/logout", (req, res) => {
   req.logOut();
-  res.redirect("/login");
+  res.redirect("/auth/login");
 });
 
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    res.redirect("/dashboard");
-  }
-  next();
-}
+
 
 module.exports = router;

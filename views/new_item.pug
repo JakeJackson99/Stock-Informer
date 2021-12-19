@@ -1,0 +1,29 @@
+extends base
+
+block content 
+
+    div(class='container mt-3')
+
+        div(class="row justify-content-center")
+
+            div(class="col-4")
+            
+                form(action="/board/new_board" method="post")
+
+                    div(class="mb-2")
+                        label(for="name" class="form-label") Board Name 
+                        input(type="text" id="name" name="name" class="form-control" require)
+                    
+                    div(class="mb-2")
+                        label(for="sub_title" class="form-label") Sub Title (optional)
+                        input(type="text" id="sub_title" name="sub_title" class="form-control")
+
+                    div(class="mb-2")
+                        label(for="desc" class="form-label") Description
+                        textarea(id="desc" name="desc" rows="3" class="form-control" require)
+
+                    div(class="mb-2")
+                        label(for="stock_count" class="form-label") Stock Count 
+                        input(type="number" id="name" name="stock_count" class="form-control" require)
+
+                    input(type="submit" class="btn btn-primary mb-2")

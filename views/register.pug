@@ -2,19 +2,12 @@ extends base
 
 block content 
 
-    h1 Register
+    div(class='container mt-3')
 
-    form(action="/register" method="post")
-        div
-            label(for="username") Username 
-            input(type="text" id="username" name="username" require)  
-        div
-            label(for="email") Email 
-            input(type="email" id="email" name="email" require)  
-        div
-            label(for="password") Password 
-            input(type="password" id="password" name="password" require)  
+        div(class="row justify-content-center"): div(class="col-4")
+            
+                h2 Register
 
-        button(type="submit") Register
+                include _register_form
 
-    a(href="/login") Login
+                a(href="/auth/login") Login 

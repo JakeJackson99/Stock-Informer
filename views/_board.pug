@@ -1,3 +1,9 @@
-div
-    p= item.name 
-    p= item.stockCount
+div(class="card" stlye="width: 18rem;")
+
+    div(class="card-body")
+    
+        h5(class="card-title")= item.name 
+        h6(class="card-subtitle")= item.subtext 
+        p(class="card-text")= item.description 
+        p(class="card-text")= item.stockCount
+        a(href="/board/" + item.name + "?_method=DELETE", class="btn") Delete

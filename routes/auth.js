@@ -6,12 +6,12 @@ const { checkNotAuthenticated } = require("../controllers/authController");
 
 
 router.get("/register", checkNotAuthenticated, (req, res) => {
-  res.render("register");
+  const passMismatch = req.flash("passMismatch")
+  res.render("register", { passMismatch });
 });
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
-
     if (req.body.password == req.body.password2) {
       const hashPassword = await bcrypt.hash(req.body.password, 10);
       const user = new User({
@@ -22,6 +22,7 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
       console.log(user)
       await user.save();
     } else {
+      req.flash("passMismatch", "Password does not match")
       res.redirect('/auth/register')
     }
 

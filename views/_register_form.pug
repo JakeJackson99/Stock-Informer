@@ -1,3 +1,5 @@
+h2 Register
+
 form(action="/auth/register" method="post")
 
     div(class='mb-3')
@@ -12,9 +14,10 @@ form(action="/auth/register" method="post")
         label(for="password" class="form-label") Password 
         input(type="password" id="password" name="password" class='form-control' require)  
 
-    //- not implemented yet
     div(class='mb-3')
         label(for="password2" class="form-label") Password (again)
+        if passMismatch
+            p(style={color: "red"})= passMismatch
         input(type="password" id="password" name="password2" class='form-control' require)  
 
     button(type="submit" class="btn btn-primary mb-3") Register

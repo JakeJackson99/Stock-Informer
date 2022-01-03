@@ -6,8 +6,7 @@ const { checkNotAuthenticated } = require("../controllers/authController");
 
 
 router.get("/register", checkNotAuthenticated, (req, res) => {
-  const passMismatch = req.flash("passMismatch")
-  res.render("register", { passMismatch });
+  res.render("register");
 });
 
 router.post("/register", checkNotAuthenticated, async (req, res) => {
@@ -22,7 +21,7 @@ router.post("/register", checkNotAuthenticated, async (req, res) => {
       console.log(user)
       await user.save();
     } else {
-      req.flash("passMismatch", "Password does not match")
+      req.flash("info", "Password does not match")
       res.redirect('/auth/register')
     }
 

@@ -9,10 +9,14 @@ function initialize(passport) {
       return done(null, false, { message: "Incorrect username" });
     }
     try {
-      if (await bcrypt.compare(password, user.password)) {
-        return done(null, user);
+      if (user.isConfirmed == true) {
+        if (await bcrypt.compare(password, user.password)) {
+          return done(null, user);
+        } else {
+          done(null, false, { message: "Incorrect password" });
+        }
       } else {
-        done(null, false, { message: "Incorrect password" });
+        done(null, false, { message: "User not confirmed" });
       }
     } catch (error) {
       console.log(error);
@@ -24,7 +28,7 @@ function initialize(passport) {
   passport.serializeUser((user, done) => done(null, user.id));
   passport.deserializeUser(async (id, done) => {
     const user = await User.findById(id);
-    return done(null, user)
+    return done(null, user);
   });
 }
 

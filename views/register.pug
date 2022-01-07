@@ -5,7 +5,11 @@ block content
     div(class='container mt-3')
 
         div(class="row justify-content-center"): div(class="col-4")
-            
-                include _register_form
 
-                a(href="/auth/login") Login 
+            if messages.verify
+                div(class="alert alert-primary" role="alert")
+                    p(style={color: "red"})= messages.verify
+
+            include _register_form
+
+            a(href="/auth/login") Login 

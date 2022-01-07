@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 255,
       require: true,
-      unique: trues,
+      unique: true,
     },
     email: {
       type: String,
@@ -29,8 +29,6 @@ const userSchema = new mongoose.Schema(
     items: [{
       name: {
         type: String,
-        unique: true,
-        require: true,
         minlength: 1,
         maxlength: 20,
       },
